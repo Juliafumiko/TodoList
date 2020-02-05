@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TodoList</title>
+</head>
+<body>
+
+    <% todo.forEach((todo)=>{%>
+        <div> <%= todo.text %></div>
+        <div> <%= todo.author %></div>
+        <div> <%= todo.date %></div>
+
+        <a href="/update/>%=todo._id%>">Update</a>
+        <a href="/update/>%=todo._id%>">Delete</a>
+    <% }) %>
+
+    <div>
+        <form action="/createtodo" method="post">
+            <input type="text" name="text" id="">
+            <input type="text" name="author" id="">
+            <button type="submit"> Post </button>
+        </form>
+    </div>
+</body>
+</html>
