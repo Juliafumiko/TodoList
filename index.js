@@ -7,14 +7,18 @@ const path = require("path");
 const app = express();
 
 app.use(express.urlencoded({extended:true}))
+
+
+
+app.set("view engine", "ejs")
+
 app.use(sassMiddleware({
     src: path.join(__dirname, "scss"),
     dest: path.join(__dirname, "public")
 }))
-app.use(express.static(path.join(__dirname,"scss")));
-app.set("view engine", "ejs")
+app.use(express.static(path.join(__dirname,"public")));
+app.use(todoRouter)
 
-// app.use(todoRouter)
 
 const port = process.env.PORT || 8001;
 const options ={

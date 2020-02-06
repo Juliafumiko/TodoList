@@ -1,7 +1,7 @@
-<form method="post">
+<form action="/update/:id" method="post">
+
     <input type="text" name="text" id="" value="<%= response.text%>">
-    <input type="text" name="author" id="" value="<%= response.author%>">
-    <input type="text" name="_id" id="" value="<%= response._id%>">
-    
+
+    <input type="text" name="_id" id="" value="<%= response._id%>" hidden>
     <button type="submit">Update</button>
 </form>

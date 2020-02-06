@@ -1,48 +1,59 @@
 const express = require("express");
-const newtodo = require("../model/todo");
-
+const todo = require("../model/todo");
 const router = express.Router();
 
-router.get("/createtodo", async(req,res)=>{
-    res.render("todo");
+router.route("/todo")
+.get(async(req,res)=>{
+        const sorted = req.query.sort ||1;
+        const todos = await todo.find().sort({text :sorted})
+        res.render("todo", {todos});
 })
 
-router.post("createtodo", async (req,res)=>{
+.post(async (req,res,next)=>{
     
-    const todo = new newtodo({
+    const tod = new todo({
         text: req.body.text,
-        author: req.body.author
     })
 
-    await todo.save((error, sucess)=>{
+    await tod.save((error, sucess)=>{
         if(error){
             console.log(error)
             res.send(error._message)
         }
         else{
             res.redirect("/todo")
+            next();
         }
     })
 });
 
-router.get("/todo", async(req,res)=>{
-    const todos = await todo.find()
-    res.render("todo", {todos});
+
+router.route("/delete/:id")
+.get(async(req,res,next)=>{
+    console.log(req.params.id);
+    await todo.deleteOne({_id:req.params.id});
+    res.redirect("/todo")
+    next();
+
 })
 
 router.route("/update/:id")
 .get(async (req,res)=>{
-    const response = await todo.findbyid({_id:req.params.id})
+    const response = await todo.findById({_id:req.params.id})
     console.log(response);
 
     res.render("edit", {response})
 })
 
-router.post(async(req,res)=>{
-    await todo.updateone({_id:req.body._id},
-        {$ser:{text: req.body.text, author: req.body.author} })
+.post(async(req,res,next)=>{
+    await todo.updateOne({_id:req.body._id},
+        {$set: {text: req.body.text}},{runValidators:true},(err)=>{
+            err? res.send(err.message): res.redirect("/todo")
+           next();
+        })
         console.log(req.body);
         res.redirect("/todo")
+        next();
 })
 
 module.exports= router;

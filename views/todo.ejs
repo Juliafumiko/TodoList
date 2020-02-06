@@ -8,19 +8,16 @@
 </head>
 <body>
 
-    <% todo.forEach((todo)=>{%>
+    <% todos.forEach((todo)=>{%>
         <div> <%= todo.text %></div>
-        <div> <%= todo.author %></div>
-        <div> <%= todo.date %></div>
 
-        <a href="/update/>%=todo._id%>">Update</a>
-        <a href="/update/>%=todo._id%>">Delete</a>
+        <a href="/update/<%=todo._id%>">Update</a>
+        <a href="/delete/<%=todo._id%>">Delete</a>
     <% }) %>
 
     <div>
-        <form action="/createtodo" method="post">
+        <form  method="post">
             <input type="text" name="text" id="">
-            <input type="text" name="author" id="">
             <button type="submit"> Post </button>
         </form>
     </div>
