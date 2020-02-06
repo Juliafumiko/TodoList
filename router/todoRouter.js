@@ -1,15 +1,15 @@
 const express = require("express");
-const newTodo = require("../model/todo");
+const newtodo = require("../model/todo");
 
 const router = express.Router();
 
-router.get("/createTodo", async(req,res)=>{
+router.get("/createtodo", async(req,res)=>{
     res.render("todo");
 })
 
 router.post("createtodo", async (req,res)=>{
     
-    const todo = new todo({
+    const todo = new newtodo({
         text: req.body.text,
         author: req.body.author
     })
@@ -26,19 +26,20 @@ router.post("createtodo", async (req,res)=>{
 });
 
 router.get("/todo", async(req,res)=>{
-    const todos = await Todo.find()
+    const todos = await todo.find()
     res.render("todo", {todos});
 })
 
-router.get("/update/:id", async (req,res)=>{
-    const response = await Todo.findbyid({_id:req.params.id})
+router.route("/update/:id")
+.get(async (req,res)=>{
+    const response = await todo.findbyid({_id:req.params.id})
     console.log(response);
 
     res.render("edit", {response})
 })
 
-router.post("/update/:id", async(req,res)=>{
-    await Todo.updateone({_id:req.body._id},
+router.post(async(req,res)=>{
+    await todo.updateone({_id:req.body._id},
         {$ser:{text: req.body.text, author: req.body.author} })
         console.log(req.body);
         res.redirect("/todo")

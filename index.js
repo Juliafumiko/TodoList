@@ -1,17 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
-// const todoRouter = require("./router/todoRouter");
+const todoRouter = require("./router/todoRouter");
+const sassMiddleware = require("node-sass-middleware")
 const config = require("./config/config");
 const path = require("path");
 const app = express();
 
 app.use(express.urlencoded({extended:true}))
+app.use(sassMiddleware({
+    src: path.join(__dirname, "scss"),
+    dest: path.join(__dirname, "public")
+}))
 app.use(express.static(path.join(__dirname,"scss")));
 app.set("view engine", "ejs")
 
 // app.use(todoRouter)
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8001;
 const options ={
     useUnifiedTopology: true,
     useNewUrlParser: true
