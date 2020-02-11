@@ -1,25 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TodoList</title>
-</head>
+<%- include("partial/header.ejs")%>
 <body>
 
-    <% todos.forEach((todo)=>{%>
-        <div> <%= todo.text %></div>
+    <h1>MY TODO LIST</h1>
+    
+        <div>
+                <form  method="post">
+                    <input type="text" name="text" id="">
+                    <button type="submit"> Post </button>
+                </form>
+            </div>
 
-        <a href="/update/<%=todo._id%>">Update</a>
-        <a href="/delete/<%=todo._id%>">Delete</a>
+    <% todos.forEach((todo)=>{%>
+        <div> 
+                 <%= todo.text %>
+                 <a class="far fa-edit" href="/update/<%=todo._id%>"></a>
+                 <a class="far fa-trash-alt" href="/delete/<%=todo._id%>"></a>
+            </div>
+       
     <% }) %>
 
-    <div>
-        <form  method="post">
-            <input type="text" name="text" id="">
-            <button type="submit"> Post </button>
-        </form>
-    </div>
+    
 </body>
 </html>
