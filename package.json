@@ -5,14 +5,22 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js & node-sass scss -o public --w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "unittest && cy:run",
+    "unittest": "mocha",
+    "cypress": "cypress open",
+    "cy:run": "cypress run -- --reco -- \"cypress/integration/todoUIspec.js\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "mocha": "^7.0.1",
     "mongoose": "^5.8.11",
     "node-sass-middleware": "^0.11.0"
+  },
+  "devDependencies": {
+    "cypress": "^4.0.1"
   }
 }
