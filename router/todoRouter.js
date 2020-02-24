@@ -52,8 +52,6 @@ router.route("/update/:id")
            next();
         })
         console.log(req.body);
-        res.redirect("/todo")
-        next();
 })
 
 module.exports= router;

@@ -4,15 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js & node-sass scss -o public --w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon dist/index.js & node-sass scss -o public --w & npm run build",
+    "test": "unittest && cy:run",
+    "unittest": "mocha",
+    "cypress": "cypress open",
+    "cy:run": "cypress run -- --reco -- \"cypress/integration/todoUIspec.js\"",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log--copy-files"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "mocha": "^7.0.1",
     "mongoose": "^5.8.11",
     "node-sass-middleware": "^0.11.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "cypress": "^4.0.1",
+    "rimraf": "^3.0.2"
   }
 }
